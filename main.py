@@ -87,12 +87,6 @@ def crawling(search):
     code_df = code_df[['회사명', '종목코드']]
     # data frame title 변경 '회사명' = name, 종목코드 = 'code'
     code_df = code_df.rename(columns={'회사명': 'name', '종목코드': 'code'})
-    # # data frame정리
-    # code_df = code_df[['회사명', '종목코드']]
-    # # data frame title 변경 '회사명' = name, 종목코드 = 'code'
-    # code_df = code_df.rename(columns={'회사명': 'name', '종목코드': 'code'})
-    # # 종목코드는 6자리로 구분되기때문에 0을 채워 6자리로 맞춰서출력
-    # code_df.code = code_df.code.map('{:06d}'.format)
     def get_code(df, name):
         #코드와 종목명을 추출
         code = df.query("name=='{}'".format(name))['code'].to_string(index=False)
@@ -100,7 +94,6 @@ def crawling(search):
         code = code.strip()
         return code
     code = get_code(code_df, search)
-    # # yahoo의 주식 데이터 종목은 코스피는 .KS, 코스닥은 .KQ가 붙음
     # get_data_yahoo API를 통해서 yahho finance의 주식 종목 데이터를 가져온다.
     df = data.DataReader(code, 'yahoo', start='2020-1-1')
     #2020년 부터의 데이터를 코드를 통해 추출
